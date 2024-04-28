@@ -15,13 +15,13 @@
         {"id": 7, "name": "Sunsu", "styleid": 1},
         {"id": 8, "name": "Chatan Yara No Sai", "styleid": 2},
         {"id": 9, "name": "Eku", "styleid": 2},
-        {"id": 10, "name": "Heshikiya Bo (Tokushin No Bo)", "styleid": 2},
-        {"id": 11, "name": "Gusan", "styleid": 2},
-        {"id": 12, "name": "Hama Higa No Tuifa", "styleid": 2},
+        {"id": 10, "name": "Gusan", "styleid": 2},
+        {"id": 11, "name": "Hama Higa No Tuifa", "styleid": 2},
+        {"id": 12, "name": "Heshikiya Bo (Tokushin No Bo)", "styleid": 2},
         {"id": 13, "name": "Moha Gama", "styleid": 2},
         {"id": 14, "name": "Nunti Bo", "styleid": 2},
         {"id": 15, "name": "Nunti Sai", "styleid": 2},
-        {"id": 16, "name": "Sansetsu kon", "styleid": 2},
+        {"id": 16, "name": "Sansetsu Kon", "styleid": 2},
         {"id": 17, "name": "Taiko Bachi", "styleid": 2},
         {"id": 18, "name": "Tekko", "styleid": 2},
         {"id": 19, "name": "Tichu", "styleid": 2},
@@ -53,7 +53,7 @@
         {"id": 45, "name": "Tijikunbo", "styleid": 4}
     ],
     "Actions":[
-        {"id": 1, "name":"Bunkai"},{"id": 2, "name":"Renzoko"},{"id": 3, "name":"Kumite"},{"id": 4, "name":"None"}
+        {"id": 1, "name":"Bunkai"},{"id": 2, "name":"Renzoku"},{"id": 3, "name":"Kumite"},{"id": 4, "name":"None"}
     ],
     "KobudoActions":[{"id": 1, "name":"Bunkai"},{"id": 2, "name":"None"}]
 }

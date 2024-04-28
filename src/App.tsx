@@ -3,6 +3,7 @@ import ListGroup from "./components/ListGroup";
 import KataList from "./components/KataList";
 import jsonData from "./assets/karatedata.json";
 import PageHeader from "./components/PageHeader";
+import ResultsPanel from "./components/ResultsPanel";
 
 function App() {
   const [selectedStyleId, setSelectedStyleId] = useState(-1);
@@ -101,29 +102,16 @@ function App() {
             />
           </div>
           <div className="col-sm-4">
-            <h5>Results</h5>
-            <div className="results-container">
-              <div>
-                Style: <strong>{styleName}</strong>
-              </div>
-              <div>
-                Kata: <strong>{selectedKataName}</strong>
-              </div>
-              <div>
-                Action: <strong>{selectedAction}</strong>
-              </div>
-
-              <div className="button-container">
-                <button
-                  className="btn btn-success"
-                  onClick={() => {
-                    getRandomDataForStyle(styleName);
-                  }}
-                >
-                  Randomize Again
-                </button>
-              </div>
-            </div>
+            <ResultsPanel
+              actionName={selectedAction}
+              buttonLabel="Randomize Again"
+              kataName={selectedKataName}
+              onButtonClick={() => {
+                getRandomDataForStyle(styleName);
+              }}
+              styleName={styleName}
+              title="Action Results"
+            />
           </div>
           <div className="col-sm-4">
             <KataList

@@ -8,7 +8,9 @@ function PageHeader({ title }: Props) {
     <>
       <div className="page-header">
         <img src={obk_logo} className="obk-logo"></img>
-        <h3>{title}</h3>
+        <h3>
+          <i>{title}</i>
+        </h3>
       </div>
     </>
   );
