@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import jsonData from "../assets/karatedata.json";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   selectedStyleId: number;
 }
 function KataList({ heading, selectedKataId, selectedStyleId }: Props) {
-  const [selectedId, setSelectedId] = useState(selectedKataId);
+  //const [selectedId, setSelectedId] = useState(selectedKataId);
   return (
     <>
       <h5>{heading}</h5>
@@ -16,17 +16,17 @@ function KataList({ heading, selectedKataId, selectedStyleId }: Props) {
           (kata) => (
             <li
               className={
-                selectedId === kata.id
+                selectedKataId === kata.id
                   ? "list-group-item active"
                   : "list-group-item"
               }
               key={kata.id}
               onClick={() => {
-                setSelectedId(kata.id);
+                //setSelectedId(kata.id);
                 return kata;
               }}
             >
-              {kata.id + " - " + kata.name}
+              {kata.name}
             </li>
           )
         )}
