@@ -1,88 +1,75 @@
 import { useEffect, useState } from "react";
 import ListGroup from "./components/ListGroup";
+import KataList from "./components/KataList";
+import jsonData from "./assets/karatedata.json";
 
 function App() {
+  const [selectedStyleId, setSelectedStyleId] = useState(-1);
+  const [selectedKataId, setSelectedKataId] = useState(-1);
   const [styleName, setStyleName] = useState("");
-  const [selectedKataIndex, setSelectedKataIndex] = useState(-1);
   const [selectedKataName, setSelectedKataName] = useState("");
   const [selectedAction, setSelectedAction] = useState("");
-  const styles = ["Isshinryu", "Tokushinryu", "Ryukonkai", "Dojo", "Other"];
-
-  const isshinryuKata = [
-    "Seisan",
-    "Seiuchin",
-    "Naihanchi",
-    "Wansu",
-    "Chinto",
-    "Kusanku",
-    "Sunsu",
-  ];
-
-  const tokushinKata = [
-    "Tekko",
-    "Tichu",
-    "Eku",
-    "Tokumine",
-    "Heshikiya",
-    "Tinbe/Rochin",
-    "Hama Higa no Tuifa",
-    "Moha Gama",
-  ];
-  const ryukonkaiKata = [
-    "Fyukyu Bo",
-    "Choun No Kun",
-    "Sakagawa No Kun",
-    "Chikken No Kun",
-    "Nunchaku Jitsu",
-    "Fyukyu Nunchaku",
-    "Katan Cha No Tekko",
-    "Ishikagawa Gama",
-  ];
-  const dojoKatas = ["Chinto Gama", "Seisan Jo", "Kusanku Jo"];
-  const actions = ["Bunkai", "Renzoko", "None"];
-  const kobudoActions = ["Bunkai", "None"];
-  const [kataArray, setKataArray] = useState(isshinryuKata);
 
   function getRandomDataForStyle(selectedStyle: string) {
-    let data = [""];
+    let kataArray: any[] = [];
+    let kataId = -1;
+    let styleId = -1;
     let selectedIndex = -1;
     let kataName = "";
     let actionName = "";
     let rndActionIndex = -1;
 
     if (selectedStyle == "Isshinryu") {
-      data = isshinryuKata;
-      selectedIndex = randomNumberInRange(0, isshinryuKata.length - 1);
-      kataName = isshinryuKata[selectedIndex];
-      rndActionIndex = randomNumberInRange(0, actions.length - 1);
-      actionName = actions[rndActionIndex];
+      kataArray = jsonData.Katas.filter((k) => k.styleid == 1).map((k) => k);
+      selectedIndex = randomNumberInRange(0, kataArray.length - 1);
+      kataId = kataArray[selectedIndex].id;
+      rndActionIndex = randomNumberInRange(0, jsonData.Actions.length - 1);
+      actionName = jsonData.Actions[rndActionIndex].name;
+      styleId = 1;
     }
     if (selectedStyle == "Tokushinryu") {
-      data = tokushinKata;
-      selectedIndex = randomNumberInRange(0, tokushinKata.length - 1);
-      kataName = tokushinKata[selectedIndex];
-      rndActionIndex = randomNumberInRange(0, kobudoActions.length - 1);
-      actionName = kobudoActions[rndActionIndex];
+      kataArray = jsonData.Katas.filter((k) => k.styleid == 2).map((k) => k);
+      selectedIndex = randomNumberInRange(0, kataArray.length - 1);
+      kataId = kataArray[selectedIndex].id;
+      rndActionIndex = randomNumberInRange(
+        0,
+        jsonData.KobudoActions.length - 1
+      );
+      actionName = jsonData.KobudoActions[rndActionIndex].name;
+      styleId = 2;
     }
     if (selectedStyle == "Ryukonkai") {
-      data = ryukonkaiKata;
-      selectedIndex = randomNumberInRange(0, ryukonkaiKata.length - 1);
-      kataName = ryukonkaiKata[selectedIndex];
-      rndActionIndex = randomNumberInRange(0, kobudoActions.length - 1);
-      actionName = kobudoActions[rndActionIndex];
+      kataArray = jsonData.Katas.filter((k) => k.styleid == 3).map((k) => k);
+      selectedIndex = randomNumberInRange(0, kataArray.length - 1);
+      kataId = kataArray[selectedIndex].id;
+      rndActionIndex = randomNumberInRange(
+        0,
+        jsonData.KobudoActions.length - 1
+      );
+      actionName = jsonData.KobudoActions[rndActionIndex].name;
+      styleId = 3;
     }
     if (selectedStyle == "Dojo") {
-      data = dojoKatas;
-      selectedIndex = randomNumberInRange(0, dojoKatas.length - 1);
-      kataName = dojoKatas[selectedIndex];
+      kataArray = jsonData.Katas.filter((k) => k.styleid == 4).map((k) => k);
+      selectedIndex = randomNumberInRange(0, kataArray.length - 1);
+      kataId = kataArray[selectedIndex].id;
       actionName = "None";
+      styleId = 4;
     }
     if (selectedStyle == "Other") {
-      //data = otherKatas;
       actionName = "None";
     }
-    setKataArray(data);
-    setSelectedKataIndex(selectedIndex);
+
+    if (kataId != -1) {
+      setSelectedKataId(kataId);
+      let k = jsonData.Katas.filter((k) => k.id === kataId)[0];
+      kataName = k.name;
+    }
+
+    if (styleId > 0) {
+      setSelectedStyleId(styleId);
+    }
+
     setSelectedKataName(kataName);
     if (kataName.length > 0) {
       setSelectedAction(actionName);
@@ -102,9 +89,9 @@ function App() {
       <div className="container">
         <h3>Kata Randomizer</h3>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-sm-4">
             <ListGroup
-              items={styles}
+              items={jsonData.Styles.map((s) => s.name)}
               heading="Select a Style"
               onSelectItem={(style) => {
                 setStyleName(style);
@@ -112,49 +99,40 @@ function App() {
               selectedItemIndex={-1}
             />
           </div>
-          <div className="col-md-4">
-            <h5>Style: {styleName}</h5>
-            <h5>Kata: {selectedKataName}</h5>
-            <h5>Action: {selectedAction}</h5>
-            <div>
-              <button
-                className="btn btn-success"
-                onClick={() => {
-                  getRandomDataForStyle(styleName);
-                }}
-              >
-                Run Again
-              </button>
+          <div className="col-sm-4">
+            <h5>Results</h5>
+            <div className="results-container">
+              <div>
+                Style: <strong>{styleName}</strong>
+              </div>
+              <div>
+                Kata: <strong>{selectedKataName}</strong>
+              </div>
+              <div>
+                Action: <strong>{selectedAction}</strong>
+              </div>
+
+              <div className="button-container">
+                <button
+                  className="btn btn-success"
+                  onClick={() => {
+                    getRandomDataForStyle(styleName);
+                  }}
+                >
+                  Randomize Again
+                </button>
+              </div>
             </div>
           </div>
-          <div className="col-md-4">
-            <div className="container">
-              <ListGroup
-                items={kataArray}
-                heading={styleName + " Kata"}
-                onSelectItem={(kata) => {
-                  console.log("clicked - " + kata);
-                }}
-                selectedItemIndex={selectedKataIndex}
-              />
-            </div>
+          <div className="col-sm-4">
+            <KataList
+              heading={styleName + " Kata List"}
+              selectedKataId={selectedKataId}
+              selectedStyleId={selectedStyleId}
+            ></KataList>
           </div>
         </div>
       </div>
-
-      {/* <CollapseButton />
-      <TestButton /> */}
-
-      {/* <div className="container">
-        <ListGroup
-          items={kataArray}
-          heading={styleName + " Kata"}
-          onSelectItem={(kata) => {
-            console.log("clicked - " + kata);
-          }}
-          selectedItemIndex={selectedKataIndex}
-        />
-      </div> */}
     </>
   );
 }
