@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 interface Props {
   items: string[];
   heading: string;
