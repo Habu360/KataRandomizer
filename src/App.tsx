@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ListGroup from "./components/ListGroup";
 import KataList from "./components/KataList";
 import jsonData from "./assets/karatedata.json";
+import PageHeader from "./components/PageHeader";
 
 function App() {
   const [selectedStyleId, setSelectedStyleId] = useState(-1);
@@ -86,8 +87,8 @@ function App() {
 
   return (
     <>
+      <PageHeader title="Kata Randomizer" />
       <div className="container">
-        <h3>Kata Randomizer</h3>
         <div className="row">
           <div className="col-sm-4">
             <ListGroup
