@@ -3,10 +3,17 @@ import { useState } from "react";
 interface Props {
   items: string[];
   heading: string;
+  onClickCategory: (item: string, category: string) => void;
   onSelectItem: (item: string) => void;
   selectedItemIndex: number;
 }
-function ListGroup({ items, heading, onSelectItem, selectedItemIndex }: Props) {
+function ListGroup({
+  items,
+  heading,
+  onClickCategory,
+  onSelectItem,
+  selectedItemIndex,
+}: Props) {
   const [selectedIndex, setSelectedIndex] = useState(selectedItemIndex);
 
   return (
@@ -22,12 +29,58 @@ function ListGroup({ items, heading, onSelectItem, selectedItemIndex }: Props) {
             }
             key={item}
             onClick={() => {
-              setSelectedIndex(index);
-              onSelectItem(item);
-              return item;
+              if (index == 0 || index == 3) {
+                setSelectedIndex(index);
+                onSelectItem(item);
+              }
             }}
           >
-            {item}
+            <div className="row">
+              <div
+                className={index == 1 || index == 2 ? "col-sm-5" : "col-sm-12"}
+              >
+                {item}
+              </div>
+
+              <div
+                className={
+                  index < 1 || index > 2
+                    ? "visually-hidden"
+                    : "col-md-7 weapon-category-container"
+                }
+              >
+                <button
+                  type="button"
+                  className="btn btn-light btn-sm weapon-category pull-right"
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    onClickCategory(item, "long");
+                  }}
+                >
+                  Long
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-light btn-sm weapon-category"
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    onClickCategory(item, "short");
+                  }}
+                >
+                  Short
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-light btn-sm weapon-category"
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    onClickCategory(item, "all");
+                  }}
+                >
+                  All
+                </button>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
