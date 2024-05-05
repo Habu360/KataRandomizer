@@ -9,10 +9,26 @@ function App() {
   const [selectedStyleId, setSelectedStyleId] = useState(-1);
   const [selectedKataId, setSelectedKataId] = useState(-1);
   const [styleName, setStyleName] = useState("");
+  const [categoryName, setCategoryName] = useState("all");
   const [selectedKataName, setSelectedKataName] = useState("");
   const [selectedAction, setSelectedAction] = useState("");
 
-  function getRandomDataForStyle(selectedStyle: string) {
+  function getKataData(styleId: number, categoryName: string) {
+    let kataArray = [];
+
+    if (categoryName === "all") {
+      kataArray = jsonData.Katas.filter((k) => k.styleid == styleId).map(
+        (k) => k
+      );
+    } else {
+      kataArray = jsonData.Katas.filter(
+        (k) => k.styleid == styleId && k.category == categoryName
+      ).map((k) => k);
+    }
+    return kataArray !== undefined ? kataArray : [];
+  }
+
+  function getRandomDataForStyle(selectedStyle: string, categoryName: string) {
     let kataArray: any[] = [];
     let kataId = -1;
     let styleId = -1;
@@ -21,8 +37,11 @@ function App() {
     let actionName = "";
     let rndActionIndex = -1;
 
+    if (categoryName === undefined) {
+      categoryName = "all";
+    }
     if (selectedStyle == "Isshinryu") {
-      kataArray = jsonData.Katas.filter((k) => k.styleid == 1).map((k) => k);
+      kataArray = getKataData(1, categoryName);
       selectedIndex = randomNumberInRange(0, kataArray.length - 1);
       kataId = kataArray[selectedIndex].id;
       rndActionIndex = randomNumberInRange(0, jsonData.Actions.length - 1);
@@ -30,7 +49,7 @@ function App() {
       styleId = 1;
     }
     if (selectedStyle == "Tokushinryu") {
-      kataArray = jsonData.Katas.filter((k) => k.styleid == 2).map((k) => k);
+      kataArray = getKataData(2, categoryName);
       selectedIndex = randomNumberInRange(0, kataArray.length - 1);
       kataId = kataArray[selectedIndex].id;
       rndActionIndex = randomNumberInRange(
@@ -41,7 +60,7 @@ function App() {
       styleId = 2;
     }
     if (selectedStyle == "Ryukonkai") {
-      kataArray = jsonData.Katas.filter((k) => k.styleid == 3).map((k) => k);
+      kataArray = getKataData(3, categoryName);
       selectedIndex = randomNumberInRange(0, kataArray.length - 1);
       kataId = kataArray[selectedIndex].id;
       rndActionIndex = randomNumberInRange(
@@ -52,12 +71,13 @@ function App() {
       styleId = 3;
     }
     if (selectedStyle == "Dojo") {
-      kataArray = jsonData.Katas.filter((k) => k.styleid == 4).map((k) => k);
+      kataArray = getKataData(4, categoryName);
       selectedIndex = randomNumberInRange(0, kataArray.length - 1);
       kataId = kataArray[selectedIndex].id;
       actionName = "None";
       styleId = 4;
     }
+
     if (selectedStyle == "Other") {
       actionName = "None";
     }
@@ -83,8 +103,12 @@ function App() {
   }
 
   useEffect(() => {
-    getRandomDataForStyle(styleName);
+    getRandomDataForStyle(styleName, categoryName);
   }, [styleName]);
+
+  useEffect(() => {
+    getRandomDataForStyle(styleName, categoryName);
+  }, [categoryName]);
 
   return (
     <>
@@ -95,7 +119,12 @@ function App() {
             <ListGroup
               items={jsonData.Styles.map((s) => s.name)}
               heading="Select a Style"
+              onClickCategory={(style, categoryName) => {
+                setCategoryName(categoryName);
+                setStyleName(style);
+              }}
               onSelectItem={(style) => {
+                setCategoryName("all");
                 setStyleName(style);
               }}
               selectedItemIndex={-1}
@@ -107,7 +136,7 @@ function App() {
               buttonLabel="Randomize Again"
               kataName={selectedKataName}
               onButtonClick={() => {
-                getRandomDataForStyle(styleName);
+                getRandomDataForStyle(styleName, categoryName);
               }}
               styleName={styleName}
               title="Action Results"
@@ -115,7 +144,12 @@ function App() {
           </div>
           <div className="col-sm-4">
             <KataList
-              heading={styleName + " Kata List"}
+              heading={
+                styleName +
+                " Kata List" +
+                (categoryName != "all" ? " (" + categoryName + "s)" : "")
+              }
+              selectedCategory={categoryName}
               selectedKataId={selectedKataId}
               selectedStyleId={selectedStyleId}
             ></KataList>

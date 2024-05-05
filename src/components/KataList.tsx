@@ -3,33 +3,44 @@ import jsonData from "../assets/karatedata.json";
 
 interface Props {
   heading: string;
+  selectedCategory: string;
   selectedKataId: number;
   selectedStyleId: number;
 }
-function KataList({ heading, selectedKataId, selectedStyleId }: Props) {
-  //const [selectedId, setSelectedId] = useState(selectedKataId);
+function KataList({
+  heading,
+  selectedCategory,
+  selectedKataId,
+  selectedStyleId,
+}: Props) {
+  function getKataArray() {
+    if (selectedCategory !== "all") {
+      return jsonData.Katas.filter(
+        (k) => k.styleid == selectedStyleId && k.category == selectedCategory
+      );
+    }
+    return jsonData.Katas.filter((k) => k.styleid == selectedStyleId);
+  }
+
   return (
     <>
       <h5>{heading}</h5>
       <ul className="list-group">
-        {jsonData.Katas.filter((k) => k.styleid == selectedStyleId).map(
-          (kata) => (
-            <li
-              className={
-                selectedKataId === kata.id
-                  ? "list-group-item active"
-                  : "list-group-item"
-              }
-              key={kata.id}
-              onClick={() => {
-                //setSelectedId(kata.id);
-                return kata;
-              }}
-            >
-              {kata.name}
-            </li>
-          )
-        )}
+        {getKataArray().map((kata) => (
+          <li
+            className={
+              selectedKataId === kata.id
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={kata.id}
+            onClick={() => {
+              return kata;
+            }}
+          >
+            {kata.name}
+          </li>
+        ))}
       </ul>
     </>
   );
