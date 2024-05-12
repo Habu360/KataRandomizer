@@ -25,23 +25,25 @@ function KataList({
   return (
     <>
       <h5>{heading}</h5>
-      <ul className="list-group">
-        {getKataArray().map((kata) => (
-          <li
-            className={
-              selectedKataId === kata.id
-                ? "list-group-item active"
-                : "list-group-item"
-            }
-            key={kata.id}
-            onClick={() => {
-              return kata;
-            }}
-          >
-            {kata.name}
-          </li>
-        ))}
-      </ul>
+      <div className="list-group-container">
+        <ul className="list-group">
+          {getKataArray().map((kata) => (
+            <li
+              className={
+                selectedKataId === kata.id
+                  ? "list-group-item active"
+                  : "list-group-item"
+              }
+              key={kata.id}
+              onClick={() => {
+                return kata;
+              }}
+            >
+              {kata.name}
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }

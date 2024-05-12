@@ -1,21 +1,23 @@
 .container {
-  margin: 10px 10px 10px 10px;
-  padding: 10px 10px 10px 10px;
+  /* margin: 10px; */
+  /* padding: 10px 10px 10px 10px; */
 }
 .results-container {
-  /* margin: 10px 10px 10px 10px; */
-  padding: 10px 10px 10px 10px;
+  padding: 10px;
   border-style: solid;
   border-width: 1px;
+  margin-bottom: 20px;
 }
-.list-group{
-  max-width: 320px;
-  background-color: bisque;
+
+.list-group-container {
   border-style: solid;
   border-width: 1px;
+  margin-bottom: 20px;
 }
-.button-container {
-  padding: 20px 0px 0px 0px;
+.results-button-container {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  text-align: center;  
 }
 
  :root {
@@ -62,41 +64,24 @@ button:focus-visible {
   text-align: center;
 }
 .obk-logo {
-  width: 150px;
+  width: 125px;
   height: auto;
 }
 .weapon-category-container{
   font-size: 0.4em;
+  text-align: right;
 }
 .weapon-category{
   margin-right: 5px;
 }
 
-
-/*
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+.spinner-wrapper {
+  margin-bottom: 20px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}  
+.spinner-text-container {
+  width: 100%;
 }
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */

@@ -12,6 +12,7 @@ function App() {
   const [categoryName, setCategoryName] = useState("all");
   const [selectedKataName, setSelectedKataName] = useState("");
   const [selectedAction, setSelectedAction] = useState("");
+  const [hideSpinner, setHideSpinner] = useState(true);
 
   function getKataData(styleId: number, categoryName: string) {
     let kataArray = [];
@@ -102,12 +103,26 @@ function App() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  function displayData() {
+    if (styleName !== "") {
+      setHideSpinner(false);
+      setTimeout(() => {
+        setHideSpinner(true);
+        getRandomDataForStyle(styleName, categoryName);
+      }, 1500);
+    }
+  }
+
   useEffect(() => {
-    getRandomDataForStyle(styleName, categoryName);
+    if (styleName !== "") {
+      displayData();
+    }
   }, [styleName]);
 
   useEffect(() => {
-    getRandomDataForStyle(styleName, categoryName);
+    if (categoryName !== "") {
+      displayData();
+    }
   }, [categoryName]);
 
   return (
@@ -134,11 +149,15 @@ function App() {
             <ResultsPanel
               actionName={selectedAction}
               buttonLabel="Randomize Again"
+              hideSpinner={hideSpinner}
               kataName={selectedKataName}
               onButtonClick={() => {
-                getRandomDataForStyle(styleName, categoryName);
+                displayData();
               }}
-              styleName={styleName}
+              styleName={
+                styleName +
+                (categoryName != "all" ? " (" + categoryName + "s)" : "")
+              }
               title="Action Results"
             />
           </div>

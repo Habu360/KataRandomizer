@@ -19,71 +19,75 @@ function ListGroup({
   return (
     <>
       <h5>{heading}</h5>
-      <ul className="list-group">
-        {items.map((item, index) => (
-          <li
-            className={
-              selectedIndex === index
-                ? "list-group-item active"
-                : "list-group-item"
-            }
-            key={item}
-            onClick={() => {
-              if (index == 0 || index == 3) {
-                setSelectedIndex(index);
-                onSelectItem(item);
+      <div className="list-group-container">
+        <ul className="list-group">
+          {items.map((item, index) => (
+            <li
+              className={
+                selectedIndex === index
+                  ? "list-group-item active"
+                  : "list-group-item"
               }
-            }}
-          >
-            <div className="row">
-              <div
-                className={index == 1 || index == 2 ? "col-sm-5" : "col-sm-12"}
-              >
-                {item}
-              </div>
-
-              <div
-                className={
-                  index < 1 || index > 2
-                    ? "visually-hidden"
-                    : "col-md-7 weapon-category-container"
+              key={item}
+              onClick={() => {
+                if (index == 0 || index == 3) {
+                  setSelectedIndex(index);
+                  onSelectItem(item);
                 }
-              >
-                <button
-                  type="button"
-                  className="btn btn-light btn-sm weapon-category pull-right"
-                  onClick={() => {
-                    setSelectedIndex(index);
-                    onClickCategory(item, "long");
-                  }}
+              }}
+            >
+              <div className="d-flex bd-highlight">
+                <div
+                  className={
+                    index == 1 || index == 2 ? "p2" : "p-2 flex-grow-1"
+                  } //col-md-4  and col-md-12
                 >
-                  Long
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-light btn-sm weapon-category"
-                  onClick={() => {
-                    setSelectedIndex(index);
-                    onClickCategory(item, "short");
-                  }}
+                  {item}
+                </div>
+
+                <div
+                  className={
+                    index < 1 || index > 2
+                      ? "visually-hidden"
+                      : "p-2 flex-grow-1 weapon-category-container" //col-md-8
+                  }
                 >
-                  Short
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-light btn-sm weapon-category"
-                  onClick={() => {
-                    setSelectedIndex(index);
-                    onClickCategory(item, "all");
-                  }}
-                >
-                  All
-                </button>
+                  <button
+                    type="button"
+                    className="btn btn-warning btn-sm weapon-category pull-right"
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      onClickCategory(item, "long");
+                    }}
+                  >
+                    Longs
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-warning btn-sm weapon-category"
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      onClickCategory(item, "short");
+                    }}
+                  >
+                    Shorts
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-warning btn-sm weapon-category"
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      onClickCategory(item, "all");
+                    }}
+                  >
+                    All
+                  </button>
+                </div>
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }

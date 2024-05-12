@@ -1,6 +1,9 @@
+import SpinnerComponent from "./SpinnerComponent";
+
 interface Props {
   actionName: string;
   buttonLabel: string;
+  hideSpinner: boolean;
   kataName: string;
   onButtonClick: (item: string) => void;
   styleName: string;
@@ -10,6 +13,7 @@ interface Props {
 function ResultsPanel({
   actionName,
   buttonLabel,
+  hideSpinner,
   kataName,
   onButtonClick,
   styleName,
@@ -19,17 +23,27 @@ function ResultsPanel({
     <>
       <h5>{title}</h5>
       <div className="results-container">
-        <div>
-          Style: <strong>{styleName}</strong>
+        <div className="d-flex bd-highlight">
+          <div className="p-2">Style:</div>
+          <div className="p-2 flex-grow-1">
+            <strong>{styleName}</strong>
+          </div>
         </div>
-        <div>
-          Kata: <strong>{kataName}</strong>
+        <div className="d-flex bd-highlight">
+          <div className="p-2">Kata:</div>
+          <div className="p-2 flex-grow-1">
+            <strong>{kataName}</strong>
+          </div>
         </div>
-        <div>
-          Action: <strong>{actionName}</strong>
+        <div className="d-flex bd-highlight">
+          <div className="p-2">Action:</div>
+          <div className="p-2 flex-grow-1">
+            <strong>{actionName}</strong>
+          </div>
         </div>
 
-        <div className="button-container">
+        <div className="results-button-container">
+          <SpinnerComponent hideSpinner={hideSpinner} />
           <button
             className="btn btn-success"
             onClick={() => {
