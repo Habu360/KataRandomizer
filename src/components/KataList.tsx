@@ -1,4 +1,3 @@
-//import { useState } from "react";
 import jsonData from "../assets/karatedata.json";
 
 interface Props {

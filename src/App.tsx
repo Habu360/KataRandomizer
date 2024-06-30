@@ -4,6 +4,7 @@ import KataList from "./components/KataList";
 import jsonData from "./assets/karatedata.json";
 import PageHeader from "./components/PageHeader";
 import ResultsPanel from "./components/ResultsPanel";
+import IKata from "./interfaces/IKata";
 
 function App() {
   const [selectedStyleId, setSelectedStyleId] = useState(-1);
@@ -15,7 +16,7 @@ function App() {
   const [hideSpinner, setHideSpinner] = useState(true);
 
   function getKataData(styleId: number, categoryName: string) {
-    let kataArray = [];
+    let kataArray: IKata[] = [];
 
     if (categoryName === "all") {
       kataArray = jsonData.Katas.filter((k) => k.styleid == styleId).map(
@@ -30,7 +31,7 @@ function App() {
   }
 
   function getRandomDataForStyle(selectedStyle: string, categoryName: string) {
-    let kataArray: any[] = [];
+    let kataArray: IKata[] = [];
     let kataId = -1;
     let styleId = -1;
     let selectedIndex = -1;
