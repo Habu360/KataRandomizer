@@ -61,6 +61,8 @@
         {"id": 2, "quote": "Block 'em and clock 'em", "author": "Sherman Harril"},
         {"id": 3, "quote": "Courtesy is a state of mind", "author": "Mike Vanderlaan"},
         {"id": 4, "quote": "Do or do not, there is no try", "author": "Yoda"},
-        {"id": 5, "quote": "Pain is just weakness leaving the body", "author": "USMC"}
+        {"id": 5, "quote": "Pain is just weakness leaving the body", "author": "USMC"},
+        {"id": 6, "quote": "Shut Up & Train!", "author": "Sherman Harril"},
+        {"id": 7, "quote": "Drills build skills", "author": "Unknown"}
     ]
 }
