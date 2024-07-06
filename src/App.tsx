@@ -5,6 +5,7 @@ import jsonData from "./assets/karatedata.json";
 import PageHeader from "./components/PageHeader";
 import ResultsPanel from "./components/ResultsPanel";
 import IKata from "./interfaces/IKata";
+import QuotesList from "./components/QuotesList";
 
 function App() {
   const [selectedStyleId, setSelectedStyleId] = useState(-1);
@@ -114,6 +115,30 @@ function App() {
     }
   }
 
+  function showQuotesPanel() {
+    let quotes = document.getElementById("quotesContainer");
+    let main = document.getElementById("mainContainer");
+    let btn = document.getElementById("btnShowQuotes");
+    let showQuotes = false;
+
+    if (btn != null) {
+      if (btn.innerHTML === "Show Quotes") {
+        btn.innerHTML = "Show Main";
+        showQuotes = true;
+      } else {
+        btn.innerHTML = "Show Quotes";
+        showQuotes = false;
+      }
+    }
+
+    if (quotes != null) {
+      quotes.style.display = showQuotes === true ? "block" : "none";
+    }
+    if (main != null) {
+      main.style.display = showQuotes === true ? "none" : "block";
+    }
+  }
+
   useEffect(() => {
     if (styleName !== "") {
       displayData();
@@ -129,7 +154,7 @@ function App() {
   return (
     <>
       <PageHeader title="Kata Randomizer" />
-      <div className="container">
+      <div id="mainContainer" className="container">
         <div className="row">
           <div className="col-sm-4">
             <ListGroup
@@ -173,6 +198,22 @@ function App() {
               selectedKataId={selectedKataId}
               selectedStyleId={selectedStyleId}
             ></KataList>
+          </div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12">
+            <button
+              id="btnShowQuotes"
+              className="btn btn-primary"
+              onClick={() => showQuotesPanel()}
+            >
+              Show Quotes
+            </button>
+          </div>
+          <div id="quotesContainer" className="col-sm-12 quotes-container">
+            <QuotesList />
           </div>
         </div>
       </div>
