@@ -1,6 +1,5 @@
 .container {
-  /* margin: 10px; */
-  /* padding: 10px 10px 10px 10px; */
+  margin: 0px;
 }
 .results-container {
   padding: 10px;
@@ -19,7 +18,16 @@
   padding-bottom: 10px;
   text-align: center;  
 }
-
+.quotes-container {
+  padding-top: 10px;
+  display: none;
+}
+.quote {
+  font-style: italic;
+}
+.quote-author {
+  padding-left: 20px;
+}
  :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
