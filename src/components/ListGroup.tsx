@@ -1,5 +1,6 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import ".././i18n";
+import { useTranslation } from "react-i18next";
 interface Props {
   items: string[];
   heading: string;
@@ -14,6 +15,11 @@ function ListGroup({
   onSelectItem,
   selectedItemIndex,
 }: Props) {
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(navigator.language);
+  }, []);
   const [selectedIndex, setSelectedIndex] = useState(selectedItemIndex);
 
   return (
@@ -60,7 +66,7 @@ function ListGroup({
                       onClickCategory(item, "long");
                     }}
                   >
-                    Longs
+                    {t("longs")}
                   </button>
                   <button
                     type="button"
@@ -70,7 +76,7 @@ function ListGroup({
                       onClickCategory(item, "short");
                     }}
                   >
-                    Shorts
+                    {t("shorts")}
                   </button>
                   <button
                     type="button"
@@ -80,7 +86,7 @@ function ListGroup({
                       onClickCategory(item, "all");
                     }}
                   >
-                    All
+                    {t("all")}
                   </button>
                 </div>
               </div>

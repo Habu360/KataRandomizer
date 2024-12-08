@@ -6,6 +6,8 @@ import PageHeader from "./components/PageHeader";
 import ResultsPanel from "./components/ResultsPanel";
 import IKata from "./interfaces/IKata";
 import QuotesList from "./components/QuotesList";
+import "./i18n";
+import { useTranslation } from "react-i18next";
 
 function App() {
   const [selectedStyleId, setSelectedStyleId] = useState(-1);
@@ -15,6 +17,11 @@ function App() {
   const [selectedKataName, setSelectedKataName] = useState("");
   const [selectedAction, setSelectedAction] = useState("");
   const [hideSpinner, setHideSpinner] = useState(true);
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(navigator.language);
+  }, []);
 
   function getKataData(styleId: number, categoryName: string) {
     let kataArray: IKata[] = [];
@@ -120,13 +127,15 @@ function App() {
     let main = document.getElementById("mainContainer");
     let btn = document.getElementById("btnShowQuotes");
     let showQuotes = false;
+    let showQuotesText = t("showQuotes").toString();
+    let showMainText = t("showMain").toString();
 
     if (btn != null) {
-      if (btn.innerHTML === "Show Quotes") {
-        btn.innerHTML = "Show Main";
+      if (btn.innerHTML.includes(showQuotesText)) {
+        btn.innerHTML = showMainText;
         showQuotes = true;
       } else {
-        btn.innerHTML = "Show Quotes";
+        btn.innerHTML = showQuotesText;
         showQuotes = false;
       }
     }
@@ -151,15 +160,18 @@ function App() {
     }
   }, [categoryName]);
 
+  let pageTitle = t("pageTitle");
+  let kataList = " " + t("kataList");
+
   return (
     <>
-      <PageHeader title="Kata Randomizer" />
+      <PageHeader title={pageTitle} />
       <div id="mainContainer" className="container">
         <div className="row">
           <div className="col-sm-4">
             <ListGroup
               items={jsonData.Styles.map((s) => s.name)}
-              heading="Select a Style"
+              heading={t("selectAStyle")}
               onClickCategory={(style, categoryName) => {
                 setCategoryName(categoryName);
                 setStyleName(style);
@@ -174,7 +186,7 @@ function App() {
           <div className="col-sm-4">
             <ResultsPanel
               actionName={selectedAction}
-              buttonLabel="Randomize Again"
+              buttonLabel={t("randomizeAgain")}
               hideSpinner={hideSpinner}
               kataName={selectedKataName}
               onButtonClick={() => {
@@ -184,14 +196,14 @@ function App() {
                 styleName +
                 (categoryName != "all" ? " (" + categoryName + "s)" : "")
               }
-              title="Action Results"
+              title={t("actionResults")}
             />
           </div>
           <div className="col-sm-4">
             <KataList
               heading={
                 styleName +
-                " Kata List" +
+                kataList +
                 (categoryName != "all" ? " (" + categoryName + "s)" : "")
               }
               selectedCategory={categoryName}
@@ -209,7 +221,7 @@ function App() {
               className="btn btn-primary"
               onClick={() => showQuotesPanel()}
             >
-              Show Quotes
+              {t("showQuotes")}
             </button>
           </div>
           <div id="quotesContainer" className="col-sm-12 quotes-container">
